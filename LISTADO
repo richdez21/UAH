@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualización de Páginas</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+        iframe {
+            border: 1px solid #ccc;
+            width: 45%;
+            height: 45vh;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <iframe src="http://172.16.79.86/home/index.html#hashHome" title="Página 1"></iframe>
+    <iframe src="http://172.16.79.82/stat/welcome.php?tab=status" title="Página 2"></iframe>
+    <iframe src="http://172.16.79.60/stat/welcome.php?tab=status" title="Página 3"></iframe>
+    <iframe src="http://172.16.79.84/home/index.html#hashHome" title="Página 4"></iframe>
+</body>
+</html>
