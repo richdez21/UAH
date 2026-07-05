@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Recursos</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f4f6f9;margin:0;padding:20px;display:flex;justify-content:center}
+@media(prefers-color-scheme:dark){body{background:#111;color:#eee}.card{background:#222}}
+.container{max-width:430px;width:100%}.card{background:#fff;border-radius:14px;padding:14px;margin:12px 0;box-shadow:0 2px 8px #0002}.btn{display:inline-block;background:#1976d2;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none}.green{border-left:8px solid #2e7d32}.yellow{border-left:8px solid #f9a825}.red{border-left:8px solid #c62828}input{width:100%;padding:10px;border-radius:8px;border:1px solid #bbb}
+</style></head><body><div class="container"><div class="card"><h2>Recursos Institucionales</h2><p>Descripción</p><div id="sum"></div><input id="q" placeholder="Buscar..."></div><div id="list"></div></div>
+<script>
+const enlaces=[
+{titulo:"Enlace 1",descripcion:"Descripción",url:"https://example.com",vence:"2026-12-15"},
+{titulo:"Enlace 2",descripcion:"Descripción",url:"https://example.org",vence:"2026-09-15"},
+{titulo:"Enlace 3",descripcion:"Descripción",url:"https://example.net",vence:"2026-08-01"}];
+function meses(d){return (d-new Date())/1000/60/60/24/30.4375}
+function estado(v){let m=meses(new Date(v));if(m>4)return"green";if(m>=2)return"yellow";return"red";}
+function txt(v){let days=Math.floor((new Date(v)-new Date())/86400000);if(days<0)return"VENCIDO";return"Faltan "+days+" días";}
+function render(){
+let q=document.getElementById('q').value.toLowerCase();
+let arr=enlaces.filter(e=>e.titulo.toLowerCase().includes(q)||e.descripcion.toLowerCase().includes(q));
+arr.sort((a,b)=>new Date(a.vence)-new Date(b.vence));
+let g=0,y=0,r=0,out="";
+arr.forEach(e=>{let c=estado(e.vence);if(c=="green")g++;else if(c=="yellow")y++;else r++;
+out+=`<div class="card ${c}"><h3>${e.titulo}</h3><p>${e.descripcion}</p><p>📅 ${e.vence}</p><p>⏳ ${txt(e.vence)}</p><a class="btn" target="_blank" href="${e.url}">Abrir</a></div>`});
+document.getElementById("list").innerHTML=out;
+document.getElementById("sum").innerHTML=`<b>${arr.length}</b> enlaces<br>🟢 ${g} | 🟡 ${y} | 🔴 ${r}`;
+}
+q.oninput=render;render();
+</script></body></html>
